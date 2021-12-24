@@ -30,3 +30,11 @@ $router->group([], function() use ($router) {
         return phpinfo();
     });
 });
+
+# project route
+$router->group([
+    "namespace" => "project",
+    "prefix"    => "project"
+], function() use ($router) {
+    $router->get("","ActivityController@index");
+});
