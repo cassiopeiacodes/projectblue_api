@@ -13,10 +13,6 @@
 |
 */
 
-//$router->get('/', function () use ($router) {
-//    return $router->app->version();
-//});
-
 $router->group([], function() use ($router) {
     $router->get("/", function() use ($router) {
         $routeCollection = $router->getRoutes();
