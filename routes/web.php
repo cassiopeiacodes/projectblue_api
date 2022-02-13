@@ -33,8 +33,17 @@ $router->group([], function() use ($router) {
 
 # project route
 $router->group([
-    "namespace" => "project",
-    "prefix"    => "project"
+    "namespace" => "activity",
+    "prefix"    => "activity"
 ], function() use ($router) {
     $router->get("","ActivityController@index");
+
+    // create new project
+    $router->post("create","ActivityController@create");
+    $router->post("create/{id}","ActivityController@create");
+
+    $router->put("project/{project_activity_id}/{project_id}", "ActivityController@project");
+
+    // delete project
+    $router->delete("delete/{mode}/{id}","ActivityController@delete");
 });
