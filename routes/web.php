@@ -33,17 +33,23 @@ $router->group([], function() use ($router) {
 
 # project route
 $router->group([
-    "namespace" => "activity",
-    "prefix"    => "activity"
+    "namespace" => "project",
+    "prefix"    => "project"
 ], function() use ($router) {
-    $router->get("","ActivityController@index");
+    $router->get("","ProjectController@index");
+    $router->post("create","ProjectController@create");
+    $router->post("closing","ProjectController@setClosing");
+    $router->put("create/{id}","ProjectController@create");
+    $router->delete("delete","ProjectController@delete");
 
-    // create new project
-    $router->post("create","ActivityController@create");
-    $router->post("create/{id}","ActivityController@create");
+    $router->get("summary","ProjectController@getSummary");
 
-    $router->put("project/{project_activity_id}/{project_id}", "ActivityController@project");
-
-    // delete project
-    $router->delete("delete/{mode}/{id}","ActivityController@delete");
+    $router->group([
+        "prefix"    => "progress",
+    ], function() use ($router) {
+        $router->get("{id}","ProjectController@getProgress");
+        $router->get("grantt/{id}","ProjectController@getGranttProgress");
+        $router->post("create/{project}","ProjectController@setProgress");
+        $router->delete("delete","ProjectController@deleteProgress");
+    });
 });
