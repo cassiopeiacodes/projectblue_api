@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class ProjectAllTable extends Migration
+class ProjectTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,11 @@ class ProjectAllTable extends Migration
      */
     public function up()
     {
-        Schema::create('project_all', function (Blueprint $table) {
+        Schema::create('project', function (Blueprint $table) {
             $table->increments("project_id");
-//            $table->primary("project_id");
-            $table->string('name');
-            $table->longText('desc');
-            $table->json("requirement")->nullable();
+            $table->string('project_name');
+            $table->longText('project_desc')->nullable();
+            $table->enum("status",["idle","process","on hold","finish","cancel"])->default('idle');
             $table->softDeletes();
             $table->timestamps();
         });
@@ -31,6 +30,6 @@ class ProjectAllTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('project_all');
+        Schema::dropIfExists('project');
     }
 }
